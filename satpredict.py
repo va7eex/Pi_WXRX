@@ -42,8 +42,6 @@ def get_sat( sat ):
 	return sat + '\n' + tle_data[sat]
 
 qth = (49.32, 123.42, 49)  # lat (N), long (W), alt (meters)
-qth_nw = (51.32, 125.42, 49)
-qth_se = (47.32, 121.42, 49)
 
 data = {}
 
@@ -51,8 +49,6 @@ for sat, freq in frequencies.iteritems():
 
 	name = predict.observe(get_sat(sat), qth)['name'].strip()
 	t = predict.transits(get_sat(sat), qth)
-	t_nw = predict.transits(get_sat(sat), qth_nw)
-	t_se = predict.transits(get_sat(sat), qth_se)
 
 	count = 0
 	while ( count < predictions ):
@@ -74,12 +70,6 @@ for sat, freq in frequencies.iteritems():
 		data[name]['duration_seconds'] = int(p.duration())
 		data[name]['duration_minutes'] = convert_time_short(data[name]['duration_seconds'])
 		data[name]['elevation'] = p.peak()['elevation']
-
-		#This actually means nothing, feel free to ignore it
-		data[name]['direction'] = 'S' #Assume northbound
-		if( int(p_nw.start) > int(p.start) and int(p.start) > int(p_se.start) ): #This is the direction the satellite is travelling TO, not from.
-
-			data[name]['direction'] = 'N'	
 
 		print name, 'next pass at:', data[name]['start'], 'at', data[name]['elevation'], 'degrees.', data[name]['direction'] + '-bound'
 		count = count + 1
