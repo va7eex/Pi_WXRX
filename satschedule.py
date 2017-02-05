@@ -88,7 +88,7 @@ else:
 	print timeoutstr, rtlstr, af_folder + filename + '.raw'
 	print soxstr, af_folder + filename + '.raw', af_folder + filename + '.wav', 'rate 11025'
 	print 'touch -r', af_folder + filename + '.raw', af_folder + filename + '.wav'
-	print 'bash', 'satrender.sh', af_folder + filename + '.wav', data[name]['start_unix']+60 #+60 is just for wxmap to work properly
+	print 'bash', 'render.sh', af_folder + filename + '.wav', data[name]['start_unix']+60 #+60 is just for wxmap to work properly
 		
 f = open(name + '_sched.txt', 'w')
 f.write(convert_time(data[name]['start_unix']))
