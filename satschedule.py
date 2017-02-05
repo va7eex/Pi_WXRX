@@ -62,16 +62,16 @@ if( data[name]['elevation'] < gain_lower_pass_requirement ):
 	gain = gain_lower_pass
 
 timeoutstr = 'timeout ' + str(data[name]['duration_seconds'])
-filename = datestamp(data[name]['start_unix']) + name + '_' + data[name]['direction'] + str(int(data[name]['elevation']))
+filename = datestamp(data[name]['start_unix']) + name + '_' + str(int(data[name]['elevation']))
 
 if( len(wxtoimg_options) == 0 ):
 
 	rtlpower = 'rtl_power -f 137M:138M:4k -g ' + gain + ' -i 1s -e ' + str(data[name]['duration_seconds']) + 's -p ' + ppmshift + ' -c 0.2 ' + output_folder + filename + '.csv'
-	heatmap = 'python heatmap.py ' + output_folder + name + '_' + data[name]['direction'] + str(int(data[name]['elevation'])) + '_' + timestamp + '.csv ' + output_folder + name + '_' + data[name]['direction'] + str(int(data[name]['elevation'])) + '_' + timestamp + '.png'
+	heatmap = 'python heatmap.py ' + output_folder + name + '_' + str(int(data[name]['elevation'])) + '_' + timestamp + '.csv ' + output_folder + name + '_' + data[name]['direction'] + str(int(data[name]['elevation'])) + '_' + timestamp + '.png'
 
 	print timeoutstr, rtlpower
 	print heatmap
-	print 'bash ftp.sh ' + output_folder + name + '_' + data[name]['direction'] + str(int(data[name]['elevation'])) + '_' + timestamp + '.png'
+	print 'bash ftp.sh ' + output_folder + name + '_' + str(int(data[name]['elevation'])) + '_' + timestamp + '.png'
 
 else:
 
@@ -93,12 +93,10 @@ else:
 f = open(name + '_sched.txt', 'w')
 f.write(convert_time(data[name]['start_unix']))
 
+#Depreciated, use render.sh
 #for opt in wxtoimg_options:
-#	filename = datestamp(data[name]['start_unix']) + name + '_' + data[name]['direction'] + str(int(data[name]['elevation']))
+#	filename = datestamp(data[name]['start_unix']) + name + '_' + str(int(data[name]['elevation']))
 #
-#	print 'wxtoimg -' + data[name]['direction'] + ' -e', opt, af_folder + filename + '.wav', output_folder + filename + '_' + opt + '.png'
-#
-#	if( data[name]['direction'] == "S" ): #southbound images are upside down
-#		print 'convert', output_folder + filename + '_' + opt + '.png', '-rotate 180', output_folder + filename + '_' + opt + '.png'
+#	print 'wxtoimg' + ' -e', opt, af_folder + filename + '.wav', output_folder + filename + '_' + opt + '.png'
 #
 #	print 'bash ftp.sh', output_folder + filename + '_' + opt + '.png'
