@@ -75,6 +75,7 @@ for sat, freq in frequencies.iteritems():
 		data[name]['duration_minutes'] = convert_time_short(data[name]['duration_seconds'])
 		data[name]['elevation'] = p.peak()['elevation']
 
+		#This actually means nothing, feel free to ignore it
 		data[name]['direction'] = 'S' #Assume northbound
 		if( int(p_nw.start) > int(p.start) and int(p.start) > int(p_se.start) ): #This is the direction the satellite is travelling TO, not from.
 
