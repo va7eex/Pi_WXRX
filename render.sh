@@ -38,7 +38,7 @@ then
         do
                 echo "Now rendering option: ${r}"
 
-                wxtoimg -e $r -ocK -m /tmp/passmap.png /tmp/$file.wav /tmp/$file"_${r}".png
+                wxtoimg -e $r -ocK -m /tmp/passmap.png /tmp/$file /tmp/$file"_${r}".png
         done
 else
         echo "Pass is in sun"
@@ -46,7 +46,7 @@ else
         do
                 echo "Now rendering option: ${r}"
 
-                wxtoimg -e $r -ocK -m /tmp/passmap.png /tmp/$file.wav /tmp/$file"_${r}".png
+                wxtoimg -e $r -ocK -m /tmp/passmap.png /tmp/$file /tmp/$file"_${r}".png
         done
 fi
 
