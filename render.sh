@@ -8,7 +8,8 @@ render_options_night=("MCIR")
 direction=${f:(-7):(-6)}
 echo $1
 #remove the directory structure from the first argument
-file="${1#'/tmp/'}"
+f1="${1:0:(-4)}"
+file="${f1#'/tmp/'}"
 
 #Isolate data values from filename file should begin with YYYYMMDD-HHMM
 dyear=${file:(0):(4)}
