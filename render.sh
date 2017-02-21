@@ -29,10 +29,10 @@ echo "${dyear}/${dmonth}/${dday} ${dhour}:${dminute} /" $unixtimestamp
 #-gRSCFH are for turning on/off the overlays such as long/lat, cities, lakes, borders, etc.
 #-H selects the TLE file
 #-o is when the satellite is overhead forward one minute from the filename just to ensure that the predictor wxmap uses agrees with the pypredict predictor
-wxmap -T "NOAA 15" -T "NOAA 18" -T "NOAA 19" -n "Vancouver,Canada" -g 0 -R 0 -S 1 -C 1 -F 0 -H ~/satellites/weather.txt -o $(($unixtimestamp+60)) /tmp/passmap.png
+wxmap -T "NOAA 15" -T "NOAA 18" -T "NOAA 19" -n "Vancouver,Canada" -c l:0xff000 -g 0 -R 0 -S 1 -C 1 -F 0 -H ~/satellites/weather.txt -o $(($unixtimestamp+60)) /tmp/passmap.png
 
 #If pass is at night time render differently for daytime.
-if [[ $dhour -le 8 ]] || [[ $dhour -ge 17 ]]
+if [[ ${dhour#0} -le 8 ]] || [[ ${dhour#0} -ge 17 ]] #the funny code is to ensure things are translated into base 10.
 then
         echo "Pass is at night"
         for r in "${render_options_night[@]}"
