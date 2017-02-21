@@ -41,7 +41,7 @@ def convert_time_short( unixtime ):
 def get_sat( sat ):
 	return sat + '\n' + tle_data[sat]
 
-qth = (49.32, 123.42, 49)  # lat (N), long (W), alt (meters)
+qth = (49.5, 123.5, 50)  # lat (N), long (W), alt (meters)
 
 data = {}
 
