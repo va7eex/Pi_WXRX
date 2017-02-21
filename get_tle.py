@@ -2,15 +2,11 @@ import requests
 import json
 import array
 import sys
-
+#Where we pull the data from.
 web_tle = [ 'http://www.celestrak.com/NORAD/elements/weather.txt', 'https://www.celestrak.com/NORAD/elements/stations.txt' ]
 
+#celestrak uses a different key value than I do, find all instances of their keys and replace with mine.
 sats_of_interest = { 'NOAA-15':'NOAA 15', 'NOAA-18':'NOAA 18', 'NOAA-19':'NOAA 19', 'METEOR-M1':'METEOR-M 1', 'METEOR-M2':'METEOR-M 2', 'ISS':'ISS (ZARYA)' }
-#sats_of_interest = { 'NOAA-15':'NOAA 15' }
-
-
-#page = urllib2.urlopen(web_noaa_tle)
-#page = requests.get(web_noaa_tle, stream=True)
 
 #NOAA 15 [B]             
 #1 25338U 98030A   16173.50363904  .00000079  00000-0  52195-4 0  9991
@@ -21,6 +17,7 @@ line_num = 0
 cur_sat_line = -1
 cur_sat = ""
 
+#This was originally intended to check that the data I was receiving was legitimate, very half-assed.
 def check_line1(str):
 	if( len(str) == 69 ):
 		fields = {}
@@ -63,12 +60,13 @@ def check_line2(str):
 for tle in web_tle:
 	page = requests.get(tle, stream=True)
 	for line in page.iter_lines():
-		#print '>>', line
+		#I don't actually remember why I made this var 'hsat'
 		for hsat, sat in sats_of_interest.iteritems():
 			if( line.startswith(sat) ):
 				cur_sat_line = line_num
 				cur_sat = hsat
 
+		#Enable this for data integrity check if you want.
 		if( line_num == cur_sat_line + 1 and cur_sat_line >= 0 ):
 			if( check_line1(line) ):
 				data[cur_sat] = line
